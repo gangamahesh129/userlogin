@@ -1,13 +1,13 @@
 package com.hostela.userlogin.util;
 
 
-import com.hostela.userlogin.dto.UserDto;
+import com.hostela.userlogin.dto.UserRequestDto;
 import com.hostela.userlogin.jpamodel.User;
 import org.apache.commons.beanutils.BeanUtils;
 
 public class UserUtil {
 
-    public static User convertUserToUserJpaModel(UserDto user) {
+    public static User convertUserToUserJpaModel(UserRequestDto user) {
         User userJpaModel = new User();
         try {
             BeanUtils.copyProperties(userJpaModel, user);
@@ -17,8 +17,8 @@ public class UserUtil {
         return userJpaModel;
     }
 
-    public static UserDto convertUserJpaModelToUser(User userJpaModel) {
-          UserDto userDetails = new UserDto();
+    public static UserRequestDto convertUserJpaModelToUser(User userJpaModel) {
+          UserRequestDto userDetails = new UserRequestDto();
         try {
             BeanUtils.copyProperties(userDetails, userJpaModel);
         } catch (Exception e) {

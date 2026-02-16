@@ -3,7 +3,7 @@ package com.hostela.userlogin.service.impl;
 
 import com.hostela.userlogin.customexception.CustomException;
 import com.hostela.userlogin.dao.UserRepository;
-import com.hostela.userlogin.dto.UserDto;
+import com.hostela.userlogin.dto.UserRequestDto;
 import com.hostela.userlogin.jpamodel.User;
 import com.hostela.userlogin.service.UserService;
 import com.hostela.userlogin.util.UserUtil;
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserDto saveUser(UserDto user) {
+    public UserRequestDto saveUser(UserRequestDto user) {
         validateUserExistence(user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.save(UserUtil.convertUserToUserJpaModel(user));
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public UserDto updateUser(Integer userid, UserDto user) {
+    public UserRequestDto updateUser(Integer userid, UserRequestDto user) {
         User existingUser = userRepository.findById(userid)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    private void validateUserExistence(UserDto user) {
+    private void validateUserExistence(UserRequestDto user) {
         if (userRepository.findByPhoneNumber(user.getPhoneNumber()).isPresent()) {
             throw new CustomException("Phone number already exists.");
         }
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto authenticate(String phoneNumber, String password) {
+    public UserRequestDto authenticate(String phoneNumber, String password) {
        User userDetails = userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() ->
                 new CustomException("UserId not found"));
 
@@ -69,9 +69,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public  List<UserDto> getAllUsers() {
+    public  List<UserRequestDto> getAllUsers() {
         List<User> list = userRepository.findAll();
-        List<UserDto> modifyList = new ArrayList<>();
+        List<UserRequestDto> modifyList = new ArrayList<>();
         if(!list.isEmpty()) {
            modifyList = list.stream().map(UserUtil::convertUserJpaModelToUser).toList();
         }

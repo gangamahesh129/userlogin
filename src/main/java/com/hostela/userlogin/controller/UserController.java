@@ -1,7 +1,7 @@
 package com.hostela.userlogin.controller;
 
 
-import com.hostela.userlogin.dto.UserDto;
+import com.hostela.userlogin.dto.UserRequestDto;
 import com.hostela.userlogin.service.UserService;
 import com.hostela.userlogin.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +22,15 @@ public class UserController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/save")
-    public ResponseEntity<?> saveUser(@RequestBody UserDto user) {
-        UserDto saveUser = userService.saveUser(user);
+    public ResponseEntity<?> saveUser(@RequestBody UserRequestDto user) {
+        UserRequestDto saveUser = userService.saveUser(user);
         return new ResponseEntity<>(saveUser, HttpStatus.OK);
 
     }
 
     @PutMapping("/update/{userid}")
-    public ResponseEntity<?> updateUser(@PathVariable Integer userid, @RequestBody UserDto user) {
-        UserDto updateUser = userService.updateUser(userid, user);
+    public ResponseEntity<?> updateUser(@PathVariable Integer userid, @RequestBody UserRequestDto user) {
+        UserRequestDto updateUser = userService.updateUser(userid, user);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
 
     }
@@ -48,7 +48,7 @@ public class UserController {
     @PostMapping("/login")
     public String authenticateUser(@RequestParam String username, @RequestParam String password) {
         // CHANGE: Implement your authentication logic here
-        UserDto isAuthenticated = userService.authenticate(username, password);
+        UserRequestDto isAuthenticated = userService.authenticate(username, password);
         if (isAuthenticated !=null) {
             return jwtUtil.generateToken(username);
         } else {
@@ -58,7 +58,7 @@ public class UserController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers() {
-        List<UserDto> allUsers = userService.getAllUsers();// CHANGE: Call service method to get all users
+        List<UserRequestDto> allUsers = userService.getAllUsers();// CHANGE: Call service method to get all users
        return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
 
