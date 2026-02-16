@@ -1,3 +1,22 @@
 spring:
   application:
     name: userlogin
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/userlogin
+    username: root
+    password: ROOTmysql123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create   # options: none, validate, update, create, create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: always
+

@@ -1,8 +1,9 @@
 package com.hostela.userlogin.controller;
 
-import com.example.hostela.model.UserDto;
-import com.example.hostela.service.UserService;
-import com.example.hostela.utils.JwtUtil;
+
+import com.hostela.userlogin.dto.UserDto;
+import com.hostela.userlogin.service.UserService;
+import com.hostela.userlogin.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/user")
+@RestController()
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -43,7 +45,7 @@ public class UserController {
         return userService.userPhoneNumberExist(phoneNumber);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String authenticateUser(@RequestParam String username, @RequestParam String password) {
         // CHANGE: Implement your authentication logic here
         UserDto isAuthenticated = userService.authenticate(username, password);

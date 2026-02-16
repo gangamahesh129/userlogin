@@ -1,12 +1,14 @@
 package com.hostela.userlogin.service.impl;
 
 
+import com.hostela.userlogin.customexception.CustomException;
 import com.hostela.userlogin.dao.UserRepository;
 import com.hostela.userlogin.dto.UserDto;
 import com.hostela.userlogin.jpamodel.User;
 import com.hostela.userlogin.service.UserService;
 import com.hostela.userlogin.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncode passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public UserDto saveUser(UserDto user) {
         validateUserExistence(user);

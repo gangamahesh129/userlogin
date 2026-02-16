@@ -25,9 +25,8 @@ public class HttpSecurityConfig {
                 .sessionManagement( s ->
                         s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-
         // Add your JWT filter here
-        http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+       // http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
