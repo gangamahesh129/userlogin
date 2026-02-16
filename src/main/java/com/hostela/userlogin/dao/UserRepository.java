@@ -1,0 +1,13 @@
+package com.hostela.userlogin.dao;
+
+import com.hostela.userlogin.jpamodel.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
+   Optional<User> findByGmail(String email);
+    Optional<User> findByPhoneNumber(String phoneNumber);
+}
