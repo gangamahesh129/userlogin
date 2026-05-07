@@ -5,6 +5,7 @@ import com.hostela.userlogin.dto.UserRequestDto;
 import com.hostela.userlogin.service.UserService;
 import com.hostela.userlogin.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    @Qualifier("MangoUserSerive")
     private UserService userService;
 
     @Autowired

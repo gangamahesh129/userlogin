@@ -8,6 +8,7 @@ import com.hostela.userlogin.jpamodel.User;
 import com.hostela.userlogin.service.UserService;
 import com.hostela.userlogin.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +19,19 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Autowired()
     private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserRequestDto saveUser(UserRequestDto user) {
-        validateUserExistence(user);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        User savedUser = userRepository.save(UserUtil.convertUserToUserJpaModel(user));
-        user.setUserid(savedUser.getUserid());
-        return user;
+    public UserRequestDto saveUser(UserRequestDto userRequestDto) {
+        validateUserExistence(userRequestDto);
+        userRequestDto.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        User user = UserUtil.convertUserToUserJpaModel(userRequestDto);
+        User savedUser = userRepository.save(user);
+        userRequestDto.setUserid(savedUser.getUserid());
+        return userRequestDto;
     }
 
     public UserRequestDto updateUser(Integer userid, UserRequestDto user) {

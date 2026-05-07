@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/userlogin
     username: root
-    password: ROOTmysql123
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -20,3 +20,8 @@ spring:
     init:
       mode: always
 
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/userdb
+      username: admin
+      password: mongo
